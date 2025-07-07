@@ -1,0 +1,7 @@
+{
+  "name": "AI Ebook Reader",
+  "description": "An intelligent, offline-first ebook reader that brings books to life with conversational AI. Read your books anywhere, anytime.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
