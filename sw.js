@@ -1,30 +1,18 @@
 
-const CACHE_NAME = 'ai-ebook-reader-v4';
+const CACHE_NAME = 'ai-ebook-reader-v5'; // Incremented version to force update
 const URLS_TO_CACHE = [
-  '.',
-  'index.html',
-  'manifest.json',
+  './',
+  './index.html',
+  './manifest.json',
+  './index.js',
+  // Assuming you have these icons in your repository
+  './icon-192.png', 
+  './icon-512.png',
+  
+  // External assets from CDNs
   'https://cdn.tailwindcss.com',
   'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap',
   'https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js',
-  
-  // Local files
-  'index.js',
-  'App.js',
-  'types.js',
-  'constants.js',
-  'data/books.js',
-  'services/geminiService.js',
-  'hooks/useSpeech.js',
-  'hooks/useSpeechRecognition.js',
-  'components/Icon.js',
-  'components/Library.js',
-  'components/Reader.js',
-  'components/ChatModal.js',
-  'components/AddBookModal.js',
-  'components/SettingsModal.js',
-
-  // Dependencies from esm.sh
   "https://esm.sh/react@18.2.0",
   "https://esm.sh/react-dom@18.2.0/client",
   "https://esm.sh/uuid@9.0.0",
@@ -38,12 +26,12 @@ self.addEventListener('install', event => {
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache and caching URLs');
-        const requests = URLS_TO_CACHE.map(url => new Request(url, { cache: 'reload' }));
-        return cache.addAll(requests).catch(err => {
+        return cache.addAll(URLS_TO_CACHE).catch(err => {
             console.error('Failed to cache some URLs:', err);
         });
       })
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
@@ -60,20 +48,25 @@ self.addEventListener('activate', event => {
       );
     })
   );
+  return self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
+  // Never cache API calls
   if (event.request.url.includes('generativelanguage.googleapis.com') || event.request.url.includes('api.elevenlabs.io')) {
     return event.respondWith(fetch(event.request));
   }
 
+  // Cache-first strategy
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // Return from cache or fetch from network
         return response || fetch(event.request).then(fetchResponse => {
+            // Optional: Cache new requests on the fly
             return caches.open(CACHE_NAME).then(cache => {
-                // We don't cache opaque responses (from no-cors requests)
-                if (fetchResponse.type !== 'opaque') {
+                // We only cache successful GET requests
+                if (fetchResponse.status === 200 && event.request.method === 'GET') {
                    cache.put(event.request, fetchResponse.clone());
                 }
                 return fetchResponse;
@@ -81,6 +74,7 @@ self.addEventListener('fetch', event => {
         });
       }).catch(error => {
         console.error('Fetch failed:', error);
+        // You can return a fallback page here if you have one
       })
     );
 });
