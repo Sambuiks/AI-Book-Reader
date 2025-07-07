@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <base href="/ai-ebook-reader/">
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Ebook Reader</title>
+    <link rel="manifest" href="./manifest.json" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              'serif': ['Lora', 'serif'],
+              'sans': ['Poppins', 'sans-serif'],
+            },
+            colors: {
+              'primary': '#6366F1',
+              'primary-focus': '#4F46E5',
+              'secondary': '#10B981',
+              'light-bg': '#F8F7F2',
+              'light-text': '#111827',
+              'dark-bg': '#1E1E2E',
+              'dark-bg-panel': '#2D2D44',
+              'dark-text': '#E5E7EB',
+              'dark-text-muted': '#9CA3AF',
+              'highlight': 'rgba(251, 239, 164, 0.6)',
+              'dark-highlight': 'rgba(251, 239, 164, 0.3)',
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "uuid": "https://esm.sh/uuid@9.0.0",
+    "pdfjs-dist/build/pdf": "https://esm.sh/pdfjs-dist@3.4.120/build/pdf",
+    "pdfjs-dist/build/pdf.worker.mjs": "https://esm.sh/pdfjs-dist@3.4.120/build/pdf.worker.mjs",
+    "@google/genai": "https://esm.sh/@google/genai@0.2.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "pdfjs-dist/": "https://esm.sh/pdfjs-dist@^5.3.93/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.js"></script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

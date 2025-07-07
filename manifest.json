@@ -1,0 +1,24 @@
+
+{
+  "short_name": "AI Reader",
+  "name": "AI Ebook Reader",
+  "description": "An intelligent, offline-first ebook reader that brings books to life with conversational AI. Read your books anywhere, anytime.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#F8F7F2",
+  "theme_color": "#6366F1",
+  "display": "standalone"
+}
